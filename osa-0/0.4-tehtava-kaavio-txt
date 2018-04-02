@@ -1,0 +1,48 @@
+kayttaja->selain:
+note left of selain
+  Käyttäjä tallettaa uuden muistiinpanon.
+end note
+note left of selain
+  Lomake (form) action POST eli selain lähettää syötetyn
+  muistiinpanon POST pyynnöllä osoitteeseen /new_note.
+end note
+selain->palvelin: POST fullstack-exampleapp.herokuapp.com/new_note
+note left of palvelin
+  Palvelin kasittelee datan tyyppiä: "application/json"
+  (eli muistiinpanon) lisäten sen listaan ja pyytää
+  selainta tekemään GET pyynnön uudestaan paikkaan:
+  /notes (http status vaste 302 = redirection).
+  (Eli palvelin pyytää uudelleenohjausta.)
+end note
+palvelin->selain: status 302 "Redirection" to /notes
+note left of selain
+  Selain tekee vastauksen perusteella uudelleen ohjauksen
+  eli tässä GET kutsun osoitteeseen /notes.
+end note
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/notes
+note left of palvelin
+  Selain lähettää GET /notes ja tehdään sama sekvenssi
+  kuten 0.3 tehtävässä jo kuvattiin kunnes sivu on valmis
+  näytettäväksi käyttäjälle.
+end note
+palvelin->selain: status 200 "OK"
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/main.css
+palvelin->selain: status 200 "OK"
+note left of palvelin
+  Palvelin lähettää tyylimäärittelyt: main.css.
+end note
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/main.js
+palvelin->selain: status 200 "OK"
+note left of palvelin
+  Palvelin lähettää scriptin: main.js.
+end note
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/data.json
+palvelin->selain: status 200 "OK"
+note left of palvelin
+  Palvelin lähettää datan: data.json (päivitettynä).
+end note
+selain->kayttaja:
+note left of selain
+  Selain viimeistelee sivun (callback function) ja
+  näyttää päivitetyn sivun käyttäjälle.
+end note

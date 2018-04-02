@@ -1,0 +1,45 @@
+kayttaja->selain:
+note left of selain
+  kayttaja valitsee sivun linkin tai kirjoittaa
+  url kenttään:fullstack-exampleapp.herokuapp.com/spa
+  ja selain lähettää GET pyynnön
+end note
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/spa
+palvelin->selain: status 200
+note left of palvelin
+  palvelin palauttaa html sivun mutta ilman muistiinpano-
+  datoja (vastaus Content-Type: text/html; charset=utf-8)
+end note
+note left of selain
+  Selain tulkitsee html:ää, ja seuraavaksi
+  pyytää main.css:ää jossa tyylimäärittelyt
+end note
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/main.css
+palvelin->selain: status 200
+note left of palvelin
+  palvelin lähettää tyylimäärittelyt: main.css
+end note
+note left of selain
+  seuraavaksi selain pyytää scriptin jotta se voi
+  jatkaa sivun viimeistelyä (main.js)
+end note
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/main.js
+palvelin->selain: status 200
+note left of palvelin
+  palvelin lähettää scriptin: main.js
+end note
+note left of selain
+selain ajaa scriptin joka muodostaa (GET) kyselyn
+datasta jolloin selain pyytää dataa palvelimelta
+end note
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/data.json
+palvelin->selain: status 200
+note left of palvelin
+  palvelin lähettää datan ja selaimelle kerrotaan
+  Content-Type: application/json; charset=utf-8
+end note
+selain->kayttaja:
+note left of selain
+  selain viimeistelee sivun (js callback function) ja
+  näyttää sivun käyttäjälle
+end note

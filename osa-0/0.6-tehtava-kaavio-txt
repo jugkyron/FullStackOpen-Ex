@@ -1,0 +1,28 @@
+kayttaja->selain:
+note left of selain
+  (spa -versio) käyttaja kirjottaa muistiinpanon
+  (formin input kenttään) ja painaa talletanappia.
+end note
+note left of selain
+  selaimessa javascript-tapahtuman käsittelijä
+  huomaa että lomake submitoidaan, aktivoituu,
+  (lomakkeen lähetys oletus toiminta estetään
+  scriptissä) selain luo uudenelementin (note)
+  ja se lisätään listaan, ruutu piirretään uudestaan.
+  Lopuksi selain (scripti) tekee POST pyynnön
+  (content type: application/json) joka
+  sisältää uuden muistiinpanon ja aikaleiman.
+end note
+note left of selain
+  selain näyttää päivitetyn sivun käyttäjälle
+  jossa on myös uusi muistiinpano mukana
+end note
+selain->palvelin: POST fullstack-exampleapp.herokuapp.com/new_note_spa
+palvelin->selain: status 201 "Created", "message":"note created"
+note left of palvelin
+  palvelin saa päivitetyn muistiinpanon ja aikaleiman.
+  Content-type:stä palvelin tietää että data on
+  application/jsonmuotoista ja lisää muistiinpanon.
+  Palvelin vastaa "message":"note created" eikä
+  uudelleen ohjausta pyydetä (kuten ed. teht.).
+end note

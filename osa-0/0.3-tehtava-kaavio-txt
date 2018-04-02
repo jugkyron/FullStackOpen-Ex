@@ -1,0 +1,46 @@
+kayttaja->selain:
+note left of selain
+  kayttaja kirjottaa osoiteriville
+  fullstack-exampleapp.herokuapp.com/notes
+end note
+note left of selain
+  selain pyytää sivua palvelimelta (GET / document)
+end note
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/notes
+note left of palvelin
+  palvelin lähettää sivun (content type: text/html, utf-8)
+end note
+palvelin->selain: status 200 OK, sivun HTML-koodi
+note left of selain
+  selain lukee html:n ja pyytää css tyylitietoja (/main.css)
+end note
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/main.css
+note left of palvelin
+  tyyliasettelut lähetetään (container ja notes)
+end note
+palvelin->selain: status 200 OK, sisältää tyylitiedot
+note left of selain
+  seuraavaksi selain pyytää javascriptiä (type script)
+  joka ajamalla muodostetaan muisttipanot html sivulle
+end note
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/main.js
+note left of palvelin
+  palvelin palautttaa javascriptin (i.e. main.js)
+end note
+palvelin->selain: status 200 OK, sisältää main.js
+note left of selain
+ seuraavaksi selain ajaa javascript koodin joka
+ asettaa tapahtumakäsittelijän datalle ja tekee
+ GET pyynnön datasta "/data.json" (type xhr)
+end note
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/data.json
+note left of palvelin
+  palvelin palauttaa datan/muistiinpanot application/json muodossa
+end note
+palvelin->selain: status 200 OK, sisältää muistiinpano datan
+note left of selain
+   Selain näyttää sivun johon on muistiinpanot on lisätty
+   "dynaamisesti" (Muodostus: selain saa datan ja
+   tapahtumakäsittelijä aktivoituu, javascript funktio ajetaan
+   ja html sivu rakennetaan valmiiksi)
+end note
