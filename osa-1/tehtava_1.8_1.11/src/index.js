@@ -1,5 +1,3 @@
-/* Unicafe osa 1 ja osa 2 */
-/* fso 2018 tehtavat 1.6 ja 1.7 */ 
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -13,10 +11,11 @@ class App extends React.Component {
       huono: 0
     }
   }
+
 render() {
-  const setToValue = (newValue) => () => { 
+  const setToValue = (newValue) => () =>  {
     switch(newValue) {
-      case 'hyva':
+      case 'hyvä':
         let hyva_kasvatettu = this.state.hyva + 1
         return (this.setState({ hyva: hyva_kasvatettu}))
       case 'neutraali':
@@ -26,9 +25,44 @@ render() {
         let huono_kasvatettu = this.state.huono + 1
         return (this.setState({ huono: huono_kasvatettu}))
       default:
-    }
-    
+    } 
   }
+  const Statistic = (nName, stat) => {
+   if (nName == 'positiivisia') {
+    return (<tr><td>{nName}:</td> <td>{Math.round(stat*10)/10} %</td></tr>)
+   }
+   return (<tr><td>{nName}:</td> <td>{Math.round(stat*10)/10}</td></tr>)
+  }
+
+  const Statistics = () => {
+    if (this.state.hyva + this.state.neutraali + this.state.huono == 0) {
+      return (
+        <div>
+          <h1>statistiikka</h1>
+          <p> ei yhtään palautetta annettu</p>
+        </div>
+      )
+    }
+    else {
+      return(
+        <div>
+          <h1>statistiikka</h1>
+          <table>
+            {Statistic('hyvä', this.state.hyva)}
+            {Statistic('neutraali', this.state.neutraali)}
+            {Statistic('huono',  this.state.huono)}
+            {Statistic('keskiarvo',  keskiarvo())}
+            {Statistic('positiivisia',  positiivisia())}
+          </table>        
+        </div>
+      )
+    }
+  }
+
+  const Button = (buttonName) => {
+    return (<button onClick={setToValue(buttonName)}>{buttonName}</button>)
+  }
+
   const positiivisia = () => {
     let ret = this.state.hyva + this.state.huono + this.state.neutraali
     if (ret === 0) {
@@ -49,18 +83,14 @@ render() {
       return (0)
     }
   }
+
   return (
     <div>
       <h1>anna palautetta</h1>
-      <button onClick={setToValue('hyva')}>hyvä</button>
-      <button onClick={setToValue('neutraali')}>neutraali</button>
-      <button onClick={setToValue('huono')}>huono</button>
-      <h1>statistiikka</h1>
-      <p>hyvä: {this.state.hyva}</p>
-      <p>neutraali: {this.state.neutraali}</p>
-      <p>huono: {this.state.huono} </p> 
-      <p>keskiarvo: {keskiarvo()} </p> 
-      <p>positiivisia: {positiivisia()} %</p> 
+        {Button('hyvä')}
+        {Button('neutraali')}
+        {Button('huono')}
+        {Statistics()}    
     </div>
   )
 }
