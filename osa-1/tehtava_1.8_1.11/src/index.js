@@ -28,14 +28,14 @@ render() {
     } 
   }
   const Statistic = (nName, stat) => {
-   if (nName == 'positiivisia') {
-    return (<tr><td>{nName}:</td> <td>{Math.round(stat*10)/10} %</td></tr>)
+   if (nName === 'positiivisia') {
+    return (<tr><td>{nName}:</td><td>{Math.round(stat*10)/10} %</td></tr>)
    }
-   return (<tr><td>{nName}:</td> <td>{Math.round(stat*10)/10}</td></tr>)
+   return (<tr><td>{nName}:</td><td>{Math.round(stat*10)/10}</td></tr>)
   }
 
   const Statistics = () => {
-    if (this.state.hyva + this.state.neutraali + this.state.huono == 0) {
+    if (this.state.hyva + this.state.neutraali + this.state.huono === 0) {
       return (
         <div>
           <h1>statistiikka</h1>
@@ -48,11 +48,13 @@ render() {
         <div>
           <h1>statistiikka</h1>
           <table>
-            {Statistic('hyvä', this.state.hyva)}
-            {Statistic('neutraali', this.state.neutraali)}
-            {Statistic('huono',  this.state.huono)}
-            {Statistic('keskiarvo',  keskiarvo())}
-            {Statistic('positiivisia',  positiivisia())}
+            <tbody>
+              {Statistic('hyvä', this.state.hyva)}
+              {Statistic('neutraali', this.state.neutraali)}
+              {Statistic('huono',  this.state.huono)}
+              {Statistic('keskiarvo',  keskiarvo())}
+              {Statistic('positiivisia',  positiivisia())}
+            </tbody>
           </table>        
         </div>
       )
