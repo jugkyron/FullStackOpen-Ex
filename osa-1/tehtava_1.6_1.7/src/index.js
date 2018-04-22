@@ -35,15 +35,15 @@ render() {
       return 0
     }
     else {
-      return (this.state.hyva * 100 / ret)
+      let pos = this.state.hyva * 100 / ret
+      return (Math.round(pos*10)/10)
     }
   }
   const keskiarvo = () => {
     let summa = this.state.hyva - this.state.huono
     let lukumaara = this.state.hyva + this.state.huono + this.state.neutraali
-
     if (lukumaara > 0) {
-      return (summa/lukumaara)
+      return (Math.round((summa/lukumaara)*10)/10)
     }
     else {
       return (0)
